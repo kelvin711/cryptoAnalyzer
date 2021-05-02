@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from collections import defaultdict
 import csv
@@ -23,6 +23,27 @@ def index(request):
     }
     return render(request, "index.html", context)
 
+def lookup(request):
+    if request.method == "POST":
+        import requests
+        import json
+        search = request.POST["search"]
+        crypto_request = requests.get(f"https://min-api.cryptocompare.com/data/pricemultifull?fsyms={search}&tsyms=USD")
+        crypto = json.loads(crypto_request.content)
+    
+    context = {
+        "search": search,
+        "crypto": crypto,
+    }
+    return render(request, "prices.html", context)
+
+def prices(request):
+    notFound = "Enter a crypto currency symbol into the form above..."
+    context = {
+        "notFound": notFound
+    }
+    return render(request, "prices.html", context)
+
 def moneyMaker(request):
     import requests
     import json
@@ -35,8 +56,7 @@ def moneyMaker(request):
     dataToInsert = []
     
     for x in coins:
-        
-        
+                
         for key, value in x.items():
             x["current_price"]
             if key == "market_cap":
@@ -48,9 +68,7 @@ def moneyMaker(request):
                 print("this is circulating",circulatingCoins)
                 expectedPrice = MarketCap/circulatingCoins
                 print("expeted price right now", expectedPrice)
-                moneyMaker.append({x["id"]: [x["current_price"], expectedPrice, ((x["current_price"] - expectedPrice) / x["current_price"]) * 100]})
-
-    print(moneyMaker)
+                moneyMaker.append({x["id"]: [x["current_price"], expectedPrice, ((x["current_price"] - expectedPrice) / x["current_price"]) * 100]})    
     context = {
         "coins": coins,
         "moneyMaker": moneyMaker

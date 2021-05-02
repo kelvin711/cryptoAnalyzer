@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ crypto.Response }} Please input a valid Crypto. </h2>
+
+<h3>{{ notFound }}</h3>
+{% for key, value in crypto.DISPLAY.items %}
+
+<div class="card" style="width: 18rem;">
+    <div class="card-header">
+        {{ key }}
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Price: {{ value.USD.PRICE }}</li>
+        <li class="list-group-item">High: {{ value.USD.HIGHDAY }}</li>
+        <li class="list-group-item">Low: {{ value.USD.LOWDAY }}</li>
+        <li class="list-group-item">Marketcap: {{ value.USD.MKTCAP }}</li>
+    </ul>
+</div>
+{% endfor %}
+{% endblock %}
