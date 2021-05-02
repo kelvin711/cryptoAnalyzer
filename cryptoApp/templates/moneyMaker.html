@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>money time bois</h1>
+
+
+
+<div>
+
+    {% for coinDict in moneyMaker %}
+        <table class="table table-hover table-dark w-75 text-center mx-auto table-striped">
+            <thead>
+                <th scope="col">Name</th>
+                <th scope="col">Current Price</th>
+                <th scope="col">Calculated Price</th>
+                <th scope="col">Percent Difference</th>                
+            </thead>
+            <tbody>
+                {% for coin, info in coinDict.items %}                    
+                <tr class="table-active">
+                    <td>{{ coin }}</td>
+                    {% for item in info %}
+                    <td>{{ item }}</td>                    
+                    {% endfor %}                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+        
+
+</div>
+
+
+{% endblock %}

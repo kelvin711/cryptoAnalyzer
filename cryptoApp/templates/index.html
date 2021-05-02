@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Maker Baby</title>
+</head>
+<style type="text/css">
+    .jumbotron {
+        padding: 4rem 2rem;
+        margin-bottom: 2rem;
+        background-color: var(--bs-light);
+        border-radius: .3rem;
+    }
+</style>
+
+<body>
+    {% extends "base.html" %}
+
+    {% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcom to Crypto News Network!</h1>
+        <p class="lead">Your source for up to the minute for up to the minute crypto news!</p>    
+    </div>
+
+    <table class="table table-hover table-dark w-75 text-center mx-auto table-striped">
+        <thead>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Daily High</th>
+            <th scope="col">Daily Low</th>
+            <th scope="col">Marketcap</th>
+        </thead>
+        <tbody>
+        {% for key, value in price.DISPLAY.items %}
+            <tr class="table-active">
+                <td>{{ key }}</td>
+                <td>{{ value.USD.PRICE }}</td>
+                <td>{{ value.USD.HIGHDAY }}</td>
+                <td>{{ value.USD.HIGHDAY }}</td>
+                <td>{{ value.USD.MKTCAP }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="container">
+        <div class="row">
+            {% for story in news.Data %}
+            <div class="col-sm">
+                <div class="card" style="width: 20rem;">
+                    <img src="{{story.imageurl}}" class="card-img-top" alt="{{story.source}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{story.title}}</h5>
+                        <p class="card-text">{{story.body}}</p>
+                        <a href="{{story.url}}" class="btn btn-sm btn-outline-secondary">Read More....</a>
+                    </div>
+                </div>
+                <br>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    {% endblock %}
+</body>
+
+</html>
